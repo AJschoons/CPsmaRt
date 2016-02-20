@@ -14,6 +14,10 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    let audioSession = AVAudioSession.sharedInstance()
+    
+    var backgroundTaskIndentifier: UIBackgroundTaskIdentifier?
 
     var cpr: CPR? {
         didSet {
@@ -93,11 +97,29 @@ extension AppDelegate: WCSessionDelegate {
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
         
         if let bpm = message["start"] as? Int {
-            cpr = CPR(bpm: bpm)
-            cpr!.startCPR()
+            
+            backgroundTaskIndentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+                guard let backgroundTaskIndentifier = self.backgroundTaskIndentifier else { return }
+                UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
+            })
+            
+            do {
+                try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+                try audioSession.setActive(true)
+                
+                let cprState = CPRState(bpm: bpm, currentCompression: 0)
+                cpr = CPR(state: cprState)
+                cpr!.startCPR()
+                
+                print("started cpr")
+                replyHandler(["started": true])
+            } catch {
+                print("problem setting up audio session")
+                replyHandler(["started": false])
+            }
         }
         
-        replyHandler(["started": true])
+        
     }
     
 }

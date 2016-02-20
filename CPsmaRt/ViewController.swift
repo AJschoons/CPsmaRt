@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-    let cpr = CPR(bpm: 100)
+    let cpr = CPR(state: CPRState(bpm: 100))
     
     var compressionAudioPlayer: AVAudioPlayer!
     var giveRescueBreathAudioPlayer: AVAudioPlayer!
@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         cpr.delegate = self
-        
         
         do {
             let beepPath = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("beep", ofType: "mp3")!)

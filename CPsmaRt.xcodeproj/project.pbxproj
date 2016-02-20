@@ -24,7 +24,6 @@
 		818E9FBA1C78194200AD8026 /* CPsmaRtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818E9FB91C78194200AD8026 /* CPsmaRtTests.swift */; };
 		818E9FC51C78194200AD8026 /* CPsmaRtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818E9FC41C78194200AD8026 /* CPsmaRtUITests.swift */; };
 		81A42BFB1C78B80600264CB8 /* CPR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A42BFA1C78B80600264CB8 /* CPR.swift */; };
-		81A42BFC1C78B80600264CB8 /* CPR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A42BFA1C78B80600264CB8 /* CPR.swift */; };
 		81A42BFE1C78CCB000264CB8 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 81A42BFD1C78CCB000264CB8 /* beep.mp3 */; };
 		81A42C001C78CF3300264CB8 /* giverescuebreath.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 81A42BFF1C78CF3300264CB8 /* giverescuebreath.mp3 */; };
 		81A42C021C78DC6900264CB8 /* CompressionPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A42C011C78DC6900264CB8 /* CompressionPlayer.swift */; };
@@ -437,7 +436,6 @@
 			files = (
 				813EB25C1C78395600727C95 /* StartInterfaceController.swift in Sources */,
 				813EB25E1C783E5700727C95 /* CprInterfaceController.swift in Sources */,
-				81A42BFC1C78B80600264CB8 /* CPR.swift in Sources */,
 				813EB24C1C781E4E00727C95 /* NotificationController.swift in Sources */,
 				813EB24A1C781E4E00727C95 /* ExtensionDelegate.swift in Sources */,
 			);

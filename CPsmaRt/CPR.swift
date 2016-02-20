@@ -14,6 +14,16 @@ protocol CPRDelegate: class {
     func onBreath()
 }
 
+struct CPRState {
+    var bpm = 100
+    var currentCompression = 0
+    
+    init(bpm: Int, currentCompression: Int = 0) {
+        self.bpm = bpm
+        self.currentCompression = currentCompression
+    }
+}
+
 class CPR: NSObject {
     
     weak var delegate: CPRDelegate?
@@ -27,22 +37,22 @@ class CPR: NSObject {
     private var compressionsCount = 0
     private let CompressionsUntilBreath = 5
     
-    private var shouldBeGivingBreath = false
-    private var remainingBreathCount = 2
     private var rescueBreathTimeCount = 0.0
     private let RescueBreathDurationInSeconds = 2.0
     private let NumberOfBreathsBetweenCompressions = 2
     
     private var timer: NSTimer?
     
-    init(bpm: Int) {
+    init(state: CPRState) {
         super.init()
         
-        setBpm(bpm)
-        remainingBreathCount = NumberOfBreathsBetweenCompressions
+        setBpm(state.bpm)
+        compressionsCount = state.currentCompression
     }
     
     func onCompressionPeriod() {
+        let shouldBeGivingBreath = compressionsCount > CompressionsUntilBreath
+        
         if shouldBeGivingBreath {
             handleShouldBeGivingBreathOnCompressionPeriod()
         } else {
@@ -56,18 +66,17 @@ class CPR: NSObject {
         // Time to give a breath
         if rescueBreathTimeCount > RescueBreathDurationInSeconds {
             rescueBreathTimeCount = 0.0
+            compressionsCount += 1
             
             // Still have breaths to give, so give a breath
-            if remainingBreathCount > 0 {
-                remainingBreathCount -= 1
+            if compressionsCount <= (CompressionsUntilBreath + 3) {
                 
                 delegate?.onBreath()
             }
                 // Done giving breaths
             else {
                 // Reset everything and start giving compressions again
-                shouldBeGivingBreath = false
-                remainingBreathCount = NumberOfBreathsBetweenCompressions
+                compressionsCount = 0
             }
             
         }
@@ -78,10 +87,7 @@ class CPR: NSObject {
         
         // Time to be giving breath
         if compressionsCount > CompressionsUntilBreath {
-            shouldBeGivingBreath = true
             rescueBreathTimeCount = RescueBreathDurationInSeconds
-            compressionsCount = 0
-            
         }
         // Should be giving compression
         else {
