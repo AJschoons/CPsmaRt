@@ -10,11 +10,11 @@
 		813EB2381C781E4E00727C95 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 813EB2361C781E4E00727C95 /* Interface.storyboard */; };
 		813EB23A1C781E4E00727C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 813EB2391C781E4E00727C95 /* Assets.xcassets */; };
 		813EB2411C781E4E00727C95 /* Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 813EB2401C781E4E00727C95 /* Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		813EB2481C781E4E00727C95 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB2471C781E4E00727C95 /* InterfaceController.swift */; };
 		813EB24A1C781E4E00727C95 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB2491C781E4E00727C95 /* ExtensionDelegate.swift */; };
 		813EB24C1C781E4E00727C95 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB24B1C781E4E00727C95 /* NotificationController.swift */; };
 		813EB24E1C781E4E00727C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 813EB24D1C781E4E00727C95 /* Assets.xcassets */; };
 		813EB2521C781E4E00727C95 /* Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 813EB2341C781E4E00727C95 /* Watch.app */; };
+		813EB25C1C78395600727C95 /* StartInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB25B1C78395600727C95 /* StartInterfaceController.swift */; };
 		818E9FA51C78194200AD8026 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818E9FA41C78194200AD8026 /* AppDelegate.swift */; };
 		818E9FA71C78194200AD8026 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818E9FA61C78194200AD8026 /* ViewController.swift */; };
 		818E9FAA1C78194200AD8026 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818E9FA81C78194200AD8026 /* Main.storyboard */; };
@@ -87,11 +87,11 @@
 		813EB23B1C781E4E00727C95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		813EB2401C781E4E00727C95 /* Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		813EB2461C781E4E00727C95 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		813EB2471C781E4E00727C95 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		813EB2491C781E4E00727C95 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		813EB24B1C781E4E00727C95 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		813EB24D1C781E4E00727C95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		813EB24F1C781E4E00727C95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		813EB25B1C78395600727C95 /* StartInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartInterfaceController.swift; sourceTree = "<group>"; };
 		818E9FA11C78194200AD8026 /* CPsmaRt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPsmaRt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818E9FA41C78194200AD8026 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		818E9FA61C78194200AD8026 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		813EB2441C781E4E00727C95 /* Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				813EB2471C781E4E00727C95 /* InterfaceController.swift */,
+				813EB25B1C78395600727C95 /* StartInterfaceController.swift */,
 				813EB2491C781E4E00727C95 /* ExtensionDelegate.swift */,
 				813EB24B1C781E4E00727C95 /* NotificationController.swift */,
 				813EB24D1C781E4E00727C95 /* Assets.xcassets */,
@@ -417,9 +417,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				813EB25C1C78395600727C95 /* StartInterfaceController.swift in Sources */,
 				813EB24C1C781E4E00727C95 /* NotificationController.swift in Sources */,
 				813EB24A1C781E4E00727C95 /* ExtensionDelegate.swift in Sources */,
-				813EB2481C781E4E00727C95 /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

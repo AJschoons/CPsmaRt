@@ -1,8 +1,8 @@
 //
-//  InterfaceController.swift
-//  Watch Extension
+//  StartInterfaceController.swift
+//  CPsmaRt
 //
-//  Created by adam on 2/19/16.
+//  Created by adam on 2/20/16.
 //  Copyright © 2016 Spartan Software, LLC. All rights reserved.
 //
 
@@ -10,8 +10,17 @@ import WatchKit
 import Foundation
 
 
-class InterfaceController: WKInterfaceController {
+class StartInterfaceController: WKInterfaceController {
 
+    @IBOutlet var startButton: WKInterfaceButton!
+    @IBOutlet var currentBpmLabel: WKInterfaceLabel!
+    @IBOutlet var bpmSlider: WKInterfaceSlider!
+    
+    @IBAction func onBpmSliderChange(value: Float) {
+        currentBpmLabel.setText(String(Int(value)))
+    }
+    
+    
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
