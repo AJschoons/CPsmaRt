@@ -12,9 +12,9 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="L7g-hh-D1l">
                             <items>
-                                <button width="100" height="100" alignment="center" title="Start" id="bfT-oM-zKm">
+                                <button width="80" height="80" alignment="center" title="Start" id="bfT-oM-zKm">
                                     <connections>
-                                        <segue destination="8YL-Tp-Zeh" kind="push" id="i3p-Ha-DWX"/>
+                                        <action selector="onStartButton" destination="AgC-eL-Hgc" id="Lkp-3m-bdG"/>
                                     </connections>
                                 </button>
                                 <group width="1" alignment="left" id="j3U-Ax-QSK">
@@ -45,18 +45,21 @@
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>
-        <!--Start-->
+        <!--CPR-->
         <scene sceneID="6hU-YA-F8R">
             <objects>
-                <controller title="Start" id="8YL-Tp-Zeh">
+                <controller identifier="CPR" title="CPR" id="8YL-Tp-Zeh" customClass="CprInterfaceController" customModule="Watch_Extension">
                     <items>
                         <timer alignment="right" textAlignment="center" format="abbreviated" previewedSeconds="143" id="NPX-SG-acs">
                             <calendarUnit key="units" minute="YES" second="YES"/>
                         </timer>
                     </items>
+                    <connections>
+                        <outlet property="timer" destination="NPX-SG-acs" id="xx6-ck-uGm"/>
+                    </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="494" y="340"/>
+            <point key="canvasLocation" x="415" y="345"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

@@ -8,6 +8,7 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 
 class StartInterfaceController: WKInterfaceController {
@@ -16,15 +17,41 @@ class StartInterfaceController: WKInterfaceController {
     @IBOutlet var currentBpmLabel: WKInterfaceLabel!
     @IBOutlet var bpmSlider: WKInterfaceSlider!
     
+    private var session: WCSession? {
+        didSet {
+            if let session = session {
+                session.delegate = self
+                session.activateSession()
+            }
+        }
+    }
+    
+    private var bpm: Int = 100 {
+        didSet { currentBpmLabel.setText(String(bpm)) }
+    }
+    
+    @IBAction func onStartButton() {
+        //pushControllerWithName("CPR", context: ["bpm" : bpm])
+        
+        session?.sendMessage(["start" : bpm], replyHandler: { reply in
+            // handle reply from iPhone app here
+            print("watch: got reply")
+            print(reply)
+            }, errorHandler: { error in
+            // catch any errors here
+            print("watch: got reply error")
+        })
+    }
+    
+    
     @IBAction func onBpmSliderChange(value: Float) {
-        currentBpmLabel.setText(String(Int(value)))
+        bpm = Int(value)
     }
     
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        
-        // Configure interface objects here.
+        session = WCSession.defaultSession()
     }
 
     override func willActivate() {
@@ -37,4 +64,10 @@ class StartInterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+}
+
+extension StartInterfaceController: WCSessionDelegate {
+    //func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        
+    //}
 }
