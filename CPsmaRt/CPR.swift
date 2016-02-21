@@ -35,10 +35,10 @@ class CPR: NSObject {
     
     private var compressionPeriod = 0.0 // Period in seconds between compressions
     private var compressionsCount = 0
-    private let CompressionsUntilBreath = 5
+    private let CompressionsUntilBreath = 30
     
     private var rescueBreathTimeCount = 0.0
-    private let RescueBreathDurationInSeconds = 2.0
+    private let RescueBreathDurationInSeconds = 5.0
     private let NumberOfBreathsBetweenCompressions = 2
     
     private var timer: NSTimer?
