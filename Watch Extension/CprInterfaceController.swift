@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import HealthKit
+import WatchConnectivity
 
 class CprInterfaceController: WKInterfaceController {
     
@@ -17,27 +18,42 @@ class CprInterfaceController: WKInterfaceController {
     private let healthStore = HKHealthStore()
     private var workoutSession: HKWorkoutSession?
     
+    private var session: WCSession? {
+        didSet {
+            if let session = session {
+                session.delegate = self
+                session.activateSession()
+            }
+        }
+    }
+    
+    private var cpr: CPR! {
+        didSet {
+            cpr.delegate = self
+        }
+    }
+    
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        guard let context = context else { return }
-        guard let bpm = context["bpm"] as? Int else { return }
+        session = WCSession.defaultSession()
         
-        timer.start()
-        startWorkoutSession()
+        if let cprState = context as? CPRState {
+            startCprWithState(cprState)
+        } else {
+            updateCprState()
+        }
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        
+        updateCprState()
     }
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-    }
-    
-    func onCompressionPeriod() {
-        //WKInterfaceDevice.currentDevice().playHaptic(.Click)
     }
     
     private func startWorkoutSession() {
@@ -50,6 +66,46 @@ class CprInterfaceController: WKInterfaceController {
         guard let workoutSession = workoutSession else { return }
         healthStore.endWorkoutSession(workoutSession)
     }
+    
+    private func startCprWithState(state: CPRState) {
+        cpr = CPR(state: state)
+        cpr.startCPR()
+        timer.start()
+        startWorkoutSession()
+    }
+    
+    private func updateCprState() {
+        session?.sendMessage(["getCprState" : true], replyHandler: { reply in
+            // handle reply from iPhone app here
+            print("watch: got reply")
+            print(reply)
+            if let bpm = reply["b"] as? Int, currentCompression = reply["c"] as? Int {
+                let cprState = CPRState(bpm: bpm, currentCompression: currentCompression)
+                
+                if self.cpr != nil {
+                    self.cpr.updateWithState(cprState)
+                } else {
+                    self.startCprWithState(cprState)
+                }
+            }
+            
+            }, errorHandler: { error in
+                // catch any errors here
+                print("watch: got reply error (will activate)")
+        })
+    }
+}
+
+extension CprInterfaceController: CPRDelegate {
+    func onCompression() {
+        print("COMPRESS")
+        WKInterfaceDevice.currentDevice().playHaptic(.Click)
+    }
+    
+    func onBreath() {
+        print("BREATH")
+        WKInterfaceDevice.currentDevice().playHaptic(.Notification)
+    }
 }
 
 extension CprInterfaceController: HKWorkoutSessionDelegate {
@@ -60,4 +116,8 @@ extension CprInterfaceController: HKWorkoutSessionDelegate {
     func workoutSession(workoutSession: HKWorkoutSession, didFailWithError error: NSError) {
         
     }
+}
+
+extension CprInterfaceController: WCSessionDelegate {
+
 }

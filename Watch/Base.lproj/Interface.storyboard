@@ -5,14 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="9515"/>
     </dependencies>
     <scenes>
-        <!--Start-->
+        <!--Start CPR-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="Start" title="Start" id="AgC-eL-Hgc" customClass="StartInterfaceController" customModule="Watch_Extension">
+                <controller identifier="Start CPR" title="Start CPR" id="AgC-eL-Hgc" customClass="StartInterfaceController" customModule="Watch_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="L7g-hh-D1l">
                             <items>
-                                <button width="80" height="80" alignment="center" title="Start" id="bfT-oM-zKm">
+                                <button width="80" height="80" alignment="center" title="Start" backgroundImage="heart" id="bfT-oM-zKm">
                                     <connections>
                                         <action selector="onStartButton" destination="AgC-eL-Hgc" id="Lkp-3m-bdG"/>
                                     </connections>

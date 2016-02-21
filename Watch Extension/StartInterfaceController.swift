@@ -37,6 +37,11 @@ class StartInterfaceController: WKInterfaceController {
             // handle reply from iPhone app here
             print("watch: got reply")
             print(reply)
+            if let bpm = reply["b"] as? Int, currentCompression = reply["c"] as? Int {
+                let cprState = CPRState(bpm: bpm, currentCompression: currentCompression)
+                self.pushControllerWithName("CPR", context: cprState)
+            }
+
             }, errorHandler: { error in
             // catch any errors here
             print("watch: got reply error")
@@ -67,7 +72,5 @@ class StartInterfaceController: WKInterfaceController {
 }
 
 extension StartInterfaceController: WCSessionDelegate {
-    //func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        
-    //}
+
 }

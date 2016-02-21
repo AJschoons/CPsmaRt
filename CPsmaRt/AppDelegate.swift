@@ -111,14 +111,19 @@ extension AppDelegate: WCSessionDelegate {
                 cpr = CPR(state: cprState)
                 cpr!.startCPR()
                 
+                
                 print("started cpr")
-                replyHandler(["started": true])
+                replyHandler(["b": cprState.bpm, "c" : cprState.currentCompression])
             } catch {
                 print("problem setting up audio session")
                 replyHandler(["started": false])
             }
+        } else if (message["getCprState"] != nil) {
+            guard let cpr = cpr else { return }
+            let cprState = cpr.getState()
+            print("updating watch cpr state")
+            replyHandler(["b": cprState.bpm, "c" : cprState.currentCompression])
         }
-        
         
     }
     

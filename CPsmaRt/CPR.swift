@@ -14,7 +14,7 @@ protocol CPRDelegate: class {
     func onBreath()
 }
 
-struct CPRState {
+class CPRState: NSObject {
     var bpm = 100
     var currentCompression = 0
     
@@ -47,6 +47,11 @@ class CPR: NSObject {
         super.init()
         
         setBpm(state.bpm)
+        compressionsCount = state.currentCompression
+    }
+    
+    func updateWithState(state: CPRState) {
+        bpm = state.bpm
         compressionsCount = state.currentCompression
     }
     
@@ -93,6 +98,10 @@ class CPR: NSObject {
         else {
             delegate?.onCompression()
         }
+    }
+    
+    func getState() -> CPRState {
+        return CPRState(bpm: bpm, currentCompression: compressionsCount)
     }
     
     func startCPR() {
