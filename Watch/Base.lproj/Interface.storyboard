@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="9532" systemVersion="15B42" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="9515"/>
+    </dependencies>
+    <scenes>
+        <!--Start CPR-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller identifier="Start CPR" title="Start CPR" id="AgC-eL-Hgc" customClass="StartInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="L7g-hh-D1l">
+                            <items>
+                                <button width="80" height="80" alignment="center" title="Start" backgroundImage="heart" id="bfT-oM-zKm">
+                                    <connections>
+                                        <action selector="onStartButton" destination="AgC-eL-Hgc" id="Lkp-3m-bdG"/>
+                                    </connections>
+                                </button>
+                                <group width="1" alignment="center" verticalAlignment="bottom" id="j3U-Ax-QSK">
+                                    <items>
+                                        <label alignment="left" text="BPM" id="6oe-BZ-cK4">
+                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                        </label>
+                                        <label alignment="right" verticalAlignment="bottom" text="100" id="Yg0-mM-R4S">
+                                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <slider width="1" alignment="center" verticalAlignment="bottom" continuous="YES" value="100" minimum="50" maximum="150" steps="20" id="EKf-x2-MUt">
+                                    <color key="color" red="0.75294117647058822" green="0.22352941176470587" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="onBpmSliderChange:" destination="AgC-eL-Hgc" id="TZc-kk-Zez"/>
+                                    </connections>
+                                </slider>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="bpmSlider" destination="EKf-x2-MUt" id="rHS-Jx-Hgu"/>
+                        <outlet property="currentBpmLabel" destination="Yg0-mM-R4S" id="tfM-mX-10O"/>
+                        <outlet property="startButton" destination="bfT-oM-zKm" id="dvt-RP-UZZ"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--CPR-->
+        <scene sceneID="6hU-YA-F8R">
+            <objects>
+                <controller identifier="CPR" title="CPR" id="8YL-Tp-Zeh" customClass="CprInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <timer alignment="right" textAlignment="center" format="abbreviated" previewedSeconds="143" id="NPX-SG-acs">
+                            <calendarUnit key="units" minute="YES" second="YES"/>
+                        </timer>
+                        <imageView width="80" height="70" alignment="center" animationDuration="0.66000000000000003" id="phL-TX-Czv"/>
+                        <button width="1" alignment="left" verticalAlignment="bottom" title="Stop" id="8zy-CZ-Xj0">
+                            <connections>
+                                <action selector="onStopButton" destination="8YL-Tp-Zeh" id="W0e-PB-z76"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <variation key="default">
+                        <mask key="items">
+                            <exclude reference="phL-TX-Czv"/>
+                            <exclude reference="8zy-CZ-Xj0"/>
+                        </mask>
+                    </variation>
+                    <variation key="device=watch38mm">
+                        <mask key="items">
+                            <include reference="phL-TX-Czv"/>
+                            <include reference="8zy-CZ-Xj0"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <outlet property="animatedHeartRate" destination="phL-TX-Czv" id="lXm-EF-zEF"/>
+                        <outlet property="timer" destination="NPX-SG-acs" id="xx6-ck-uGm"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="415" y="345"/>
+        </scene>
+        <!--CPR Done-->
+        <scene sceneID="OvS-Y7-JD1">
+            <objects>
+                <controller identifier="CPR Done" title=" " id="mZE-nm-ZfM" customClass="CprCompletedInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <imageView width="80" height="80" alignment="center" image="healthKit" id="gb2-hv-BFG"/>
+                        <label alignment="center" text="Label" textAlignment="center" id="CSH-Nf-IPM">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                            <variation key="device=watch38mm" text="CPR Completed"/>
+                        </label>
+                        <button width="1" alignment="center" verticalAlignment="bottom" title="Okay" id="DFH-Ht-c8d">
+                            <variation key="device=watch38mm" title="Finish"/>
+                            <connections>
+                                <action selector="onFinishButton" destination="mZE-nm-ZfM" id="ku5-qd-gUx"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <variation key="default">
+                        <mask key="items">
+                            <exclude reference="gb2-hv-BFG"/>
+                            <exclude reference="CSH-Nf-IPM"/>
+                            <exclude reference="DFH-Ht-c8d"/>
+                        </mask>
+                    </variation>
+                    <variation key="device=watch38mm" title="CPR Done">
+                        <mask key="items">
+                            <include reference="gb2-hv-BFG"/>
+                            <include reference="CSH-Nf-IPM"/>
+                            <include reference="DFH-Ht-c8d"/>
+                        </mask>
+                    </variation>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="611" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Watch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>
