@@ -9,11 +9,11 @@
 import WatchKit
 import Foundation
 import HealthKit
-import WatchConnectivity
 
 class CprInterfaceController: WKInterfaceController {
     
     @IBOutlet var timer: WKInterfaceTimer!
+    @IBOutlet var animatedHeartRate: WKInterfaceImage!
 
     @IBAction func onStopButton() {
         stopCpr()
@@ -22,14 +22,7 @@ class CprInterfaceController: WKInterfaceController {
     private let healthStore = HKHealthStore()
     private var workoutSession: HKWorkoutSession?
     
-    private var session: WCSession? {
-        didSet {
-            if let session = session {
-                session.delegate = self
-                session.activateSession()
-            }
-        }
-    }
+    private let delegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
     
     private var cpr: CPR! {
         didSet {
@@ -39,7 +32,6 @@ class CprInterfaceController: WKInterfaceController {
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        session = WCSession.defaultSession()
         
         if let cprState = context as? CPRState {
             startCprWithState(cprState)
@@ -70,10 +62,13 @@ class CprInterfaceController: WKInterfaceController {
         cpr.startCPR()
         timer.start()
         startWorkoutSession()
+        
+        animatedHeartRate.setImageNamed("animateHeartRate")
+        animatedHeartRate.startAnimatingWithImagesInRange(NSRange(location: 1, length: 20), duration: Double(60 / state.bpm), repeatCount: Int.max)
     }
     
     private func updateCprState() {
-        session?.sendMessage(["getCprState" : true], replyHandler: { reply in
+        delegate.session?.sendMessage(["getCprState" : true], replyHandler: { reply in
             dispatch_async(dispatch_get_main_queue(), {
                 print("watch: got reply")
                 print(reply)
@@ -99,7 +94,7 @@ class CprInterfaceController: WKInterfaceController {
         timer.stop()
         endWorkoutSession()
         
-        session?.sendMessage(["stop" : true], replyHandler: { reply in
+        delegate.session?.sendMessage(["stop" : true], replyHandler: { reply in
             dispatch_async(dispatch_get_main_queue(), {
                 print("watch: got reply")
                 
@@ -117,11 +112,13 @@ extension CprInterfaceController: CPRDelegate {
     func onCompression() {
         print("COMPRESS")
         WKInterfaceDevice.currentDevice().playHaptic(.Click)
+        animatedHeartRate.startAnimating()
     }
     
     func onBreath() {
         print("BREATH")
         WKInterfaceDevice.currentDevice().playHaptic(.Notification)
+        animatedHeartRate.stopAnimating()
     }
 }
 
@@ -133,8 +130,4 @@ extension CprInterfaceController: HKWorkoutSessionDelegate {
     func workoutSession(workoutSession: HKWorkoutSession, didFailWithError error: NSError) {
         
     }
-}
-
-extension CprInterfaceController: WCSessionDelegate {
-
 }

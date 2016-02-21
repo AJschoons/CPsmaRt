@@ -7,11 +7,24 @@
 //
 
 import WatchKit
+import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
+    private(set) var session: WCSession? {
+        didSet {
+            if let session = session {
+                session.delegate = self
+                session.activateSession()
+            }
+        }
+    }
+    
+    
+    
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        session = WCSession.defaultSession()
     }
 
     func applicationDidBecomeActive() {
@@ -23,4 +36,19 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
 
+}
+
+
+extension ExtensionDelegate: WCSessionDelegate {
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        
+        // Start CPR
+        if let bpm = message["start"] as? Int {
+            let cprState = CPRState(bpm: bpm)
+            
+            //dispatch_async(dispatch_get_main_queue(), {
+            //self.pushControllerWithName("CPR", context: cprState)
+            //})
+        }
+    }
 }

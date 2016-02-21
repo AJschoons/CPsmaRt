@@ -171,8 +171,101 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--Done View Controller-->
+        <scene sceneID="227-bl-1Mk">
+            <objects>
+                <viewController storyboardIdentifier="CPRDoneViewController" id="wRU-ug-fW5" customClass="CPRDoneViewController" customModule="CPsmaRt" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fMh-wu-VAT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cjj-DZ-DH2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Yu-B5-kxe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ek-or-bnd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="reu-EF-Ip8">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="oXd-IQ-HJj">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="healthKitLarge" translatesAutoresizingMaskIntoConstraints="NO" id="J48-YS-cth">
+                                                    <rect key="frame" x="112" y="233" width="150" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="HJ1-0w-H3E"/>
+                                                        <constraint firstAttribute="height" constant="150" id="vqv-FM-ugN"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CPR Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKK-94-m2f">
+                                                    <rect key="frame" x="112" y="393" width="150" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85u-j4-fy4">
+                                                    <rect key="frame" x="30" y="592" width="315" height="45"/>
+                                                    <color key="backgroundColor" red="0.75294117650000003" green="0.22352941179999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="pgF-sH-yns"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                    <state key="normal" title="Finish">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="onFinishButton:" destination="wRU-ug-fW5" eventType="touchUpInside" id="YNf-T9-WT0"/>
+                                                        <action selector="onStopCPRButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zqy-aB-eEC"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UKK-94-m2f" firstAttribute="trailing" secondItem="J48-YS-cth" secondAttribute="trailing" id="0gW-m5-jbO"/>
+                                                <constraint firstItem="J48-YS-cth" firstAttribute="centerX" secondItem="oXd-IQ-HJj" secondAttribute="centerX" id="0qs-Ra-1qA"/>
+                                                <constraint firstAttribute="trailing" secondItem="85u-j4-fy4" secondAttribute="trailing" constant="30" id="3Hf-eH-0T7"/>
+                                                <constraint firstItem="85u-j4-fy4" firstAttribute="leading" secondItem="oXd-IQ-HJj" secondAttribute="leading" constant="30" id="3bP-fD-2OT"/>
+                                                <constraint firstItem="UKK-94-m2f" firstAttribute="top" secondItem="J48-YS-cth" secondAttribute="bottom" constant="10" id="EwO-1e-lgo"/>
+                                                <constraint firstAttribute="bottom" secondItem="85u-j4-fy4" secondAttribute="bottom" constant="30" id="IAd-kT-pNk"/>
+                                                <constraint firstItem="UKK-94-m2f" firstAttribute="leading" secondItem="J48-YS-cth" secondAttribute="leading" id="hbA-cD-Wwt"/>
+                                                <constraint firstItem="J48-YS-cth" firstAttribute="centerY" secondItem="oXd-IQ-HJj" secondAttribute="centerY" constant="-25" id="qDS-Ww-cPI"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="oXd-IQ-HJj" secondAttribute="trailing" id="COW-6W-JgE"/>
+                                        <constraint firstItem="oXd-IQ-HJj" firstAttribute="top" secondItem="reu-EF-Ip8" secondAttribute="top" id="jyq-U5-6Fv"/>
+                                        <constraint firstAttribute="bottom" secondItem="oXd-IQ-HJj" secondAttribute="bottom" id="q6P-8t-hmW"/>
+                                        <constraint firstItem="oXd-IQ-HJj" firstAttribute="leading" secondItem="reu-EF-Ip8" secondAttribute="leading" id="toV-PO-lgO"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cjj-DZ-DH2" firstAttribute="top" secondItem="5Ek-or-bnd" secondAttribute="bottom" id="WUS-Ta-tGY"/>
+                            <constraint firstAttribute="trailing" secondItem="5Ek-or-bnd" secondAttribute="trailing" id="hq6-C3-C2Q"/>
+                            <constraint firstItem="5Ek-or-bnd" firstAttribute="leading" secondItem="7Yu-B5-kxe" secondAttribute="leading" id="nee-ob-ZG9"/>
+                            <constraint firstItem="5Ek-or-bnd" firstAttribute="top" secondItem="7Yu-B5-kxe" secondAttribute="top" id="vDp-nB-ToL"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N4d-lZ-WPG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="338.5" y="-496.5"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="healthKitLarge" width="300" height="300"/>
         <image name="iphoneHeartRateLogo" width="200" height="200"/>
     </resources>
 </document>

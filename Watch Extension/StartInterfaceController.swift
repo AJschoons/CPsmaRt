@@ -8,8 +8,6 @@
 
 import WatchKit
 import Foundation
-import WatchConnectivity
-
 
 class StartInterfaceController: WKInterfaceController {
 
@@ -17,14 +15,7 @@ class StartInterfaceController: WKInterfaceController {
     @IBOutlet var currentBpmLabel: WKInterfaceLabel!
     @IBOutlet var bpmSlider: WKInterfaceSlider!
     
-    private var session: WCSession? {
-        didSet {
-            if let session = session {
-                session.delegate = self
-                session.activateSession()
-            }
-        }
-    }
+    private let delegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
     
     private var bpm: Int = 100 {
         didSet { currentBpmLabel.setText(String(bpm)) }
@@ -33,7 +24,7 @@ class StartInterfaceController: WKInterfaceController {
     @IBAction func onStartButton() {
         WKInterfaceDevice.currentDevice().playHaptic(.Start)
         
-        session?.sendMessage(["start" : bpm], replyHandler: { reply in
+        delegate.session?.sendMessage(["start" : bpm], replyHandler: { reply in
             // handle reply from iPhone app here
             dispatch_async(dispatch_get_main_queue(), {
                 print("watch: got reply")
@@ -59,7 +50,6 @@ class StartInterfaceController: WKInterfaceController {
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        session = WCSession.defaultSession()
     }
 
     override func willActivate() {
@@ -71,9 +61,5 @@ class StartInterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
-}
-
-extension StartInterfaceController: WCSessionDelegate {
 
 }

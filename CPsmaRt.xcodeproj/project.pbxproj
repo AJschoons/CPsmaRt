@@ -23,6 +23,7 @@
 		818E9FAF1C78194200AD8026 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818E9FAD1C78194200AD8026 /* LaunchScreen.storyboard */; };
 		818E9FBA1C78194200AD8026 /* CPsmaRtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818E9FB91C78194200AD8026 /* CPsmaRtTests.swift */; };
 		818E9FC51C78194200AD8026 /* CPsmaRtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818E9FC41C78194200AD8026 /* CPsmaRtUITests.swift */; };
+		8197FC2E1C79B24700CA6AD6 /* CPRDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8197FC2D1C79B24700CA6AD6 /* CPRDoneViewController.swift */; };
 		81A42BFB1C78B80600264CB8 /* CPR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A42BFA1C78B80600264CB8 /* CPR.swift */; };
 		81A42BFE1C78CCB000264CB8 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 81A42BFD1C78CCB000264CB8 /* beep.mp3 */; };
 		81A42C021C78DC6900264CB8 /* CompressionPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A42C011C78DC6900264CB8 /* CompressionPlayer.swift */; };
@@ -114,6 +115,7 @@
 		818E9FC01C78194200AD8026 /* CPsmaRtUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPsmaRtUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		818E9FC41C78194200AD8026 /* CPsmaRtUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPsmaRtUITests.swift; sourceTree = "<group>"; };
 		818E9FC61C78194200AD8026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8197FC2D1C79B24700CA6AD6 /* CPRDoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPRDoneViewController.swift; sourceTree = "<group>"; };
 		81A42BFA1C78B80600264CB8 /* CPR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPR.swift; sourceTree = "<group>"; };
 		81A42BFD1C78CCB000264CB8 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = beep.mp3; path = ../../../../../Downloads/beep.mp3; sourceTree = "<group>"; };
 		81A42C011C78DC6900264CB8 /* CompressionPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompressionPlayer.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				81A42BFD1C78CCB000264CB8 /* beep.mp3 */,
 				81C8C0F31C795D3100F302DA /* cprcompleted.mp3 */,
 				81C8C0EF1C79573700F302DA /* giverescuebreath.mp3 */,
+				8197FC2D1C79B24700CA6AD6 /* CPRDoneViewController.swift */,
 				818E9FA41C78194200AD8026 /* AppDelegate.swift */,
 				818E9FA61C78194200AD8026 /* CPRViewController.swift */,
 				818E9FA81C78194200AD8026 /* Main.storyboard */,
@@ -458,6 +461,7 @@
 				818E9FA71C78194200AD8026 /* CPRViewController.swift in Sources */,
 				81A42C021C78DC6900264CB8 /* CompressionPlayer.swift in Sources */,
 				818E9FA51C78194200AD8026 /* AppDelegate.swift in Sources */,
+				8197FC2E1C79B24700CA6AD6 /* CPRDoneViewController.swift in Sources */,
 				81A42BFB1C78B80600264CB8 /* CPR.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

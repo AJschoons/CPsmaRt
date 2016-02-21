@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        if WCSession.isSupported() {
+        if WCSession.isSupported() && session == nil {
             session = WCSession.defaultSession()
         }
         
@@ -90,6 +90,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func startCPRFromPhoneWithBPM(bpm: Int) {
         do {
             try startCPRWithBPM(bpm)
+            
+            if WCSession.isSupported() && session == nil {
+                session = WCSession.defaultSession()
+            }
+            
+            if session?.reachable == true {
+                session?.sendMessage(["start" : bpm], replyHandler: nil, errorHandler: nil)
+            }
         } catch {
             
         }
@@ -97,6 +105,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func stopCPRFromPhone() {
         stopCPR()
+        
+        if WCSession.isSupported() && session == nil {
+            session = WCSession.defaultSession()
+        }
+        
+        if session?.reachable == true {
+            session?.sendMessage(["stop" : true], replyHandler: nil, errorHandler: nil)
+        }
     }
     
     private func startCPRWithBPM(bpm: Int) throws -> CPRState {

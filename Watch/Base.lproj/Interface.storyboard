@@ -53,6 +53,7 @@
                         <timer alignment="right" textAlignment="center" format="abbreviated" previewedSeconds="143" id="NPX-SG-acs">
                             <calendarUnit key="units" minute="YES" second="YES"/>
                         </timer>
+                        <imageView width="80" height="70" alignment="center" animationDuration="0.66000000000000003" id="phL-TX-Czv"/>
                         <button width="1" alignment="left" verticalAlignment="bottom" title="Stop" id="8zy-CZ-Xj0">
                             <connections>
                                 <action selector="onStopButton" destination="8YL-Tp-Zeh" id="W0e-PB-z76"/>
@@ -61,22 +62,25 @@
                     </items>
                     <variation key="default">
                         <mask key="items">
+                            <exclude reference="phL-TX-Czv"/>
                             <exclude reference="8zy-CZ-Xj0"/>
                         </mask>
                     </variation>
                     <variation key="device=watch38mm">
                         <mask key="items">
+                            <include reference="phL-TX-Czv"/>
                             <include reference="8zy-CZ-Xj0"/>
                         </mask>
                     </variation>
                     <connections>
+                        <outlet property="animatedHeartRate" destination="phL-TX-Czv" id="lXm-EF-zEF"/>
                         <outlet property="timer" destination="NPX-SG-acs" id="xx6-ck-uGm"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="415" y="345"/>
         </scene>
-        <!-- -->
+        <!--CPR Done-->
         <scene sceneID="OvS-Y7-JD1">
             <objects>
                 <controller identifier="CPR Done" title=" " id="mZE-nm-ZfM" customClass="CprCompletedInterfaceController" customModule="Watch_Extension">
@@ -100,7 +104,7 @@
                             <exclude reference="DFH-Ht-c8d"/>
                         </mask>
                     </variation>
-                    <variation key="device=watch38mm">
+                    <variation key="device=watch38mm" title="CPR Done">
                         <mask key="items">
                             <include reference="gb2-hv-BFG"/>
                             <include reference="CSH-Nf-IPM"/>

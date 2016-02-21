@@ -64,6 +64,8 @@ class CPRViewController: UIViewController {
         UIView.animateWithDuration(0.5) {
             self.setStopViewHidden(true)
         }
+        
+        presentCPRDone()
     }
     
     private func startCPR() {
@@ -87,5 +89,16 @@ class CPRViewController: UIViewController {
     
     private func setStopViewHidden(hidden: Bool) {
         stopView.alpha = hidden ? 0.0 : 1.0
+    }
+    
+    private func presentCPRDone() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("CPRDoneViewController")
+        guard let cdvc = vc as? CPRDoneViewController else { return }
+        
+        cdvc.modalTransitionStyle = .CrossDissolve
+        cdvc.modalPresentationStyle = .OverFullScreen
+        
+        presentViewController(cdvc, animated: true, completion: nil)
     }
 }
