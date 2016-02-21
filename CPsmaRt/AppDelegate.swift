@@ -16,8 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     let audioSession = AVAudioSession.sharedInstance()
-    
-    var backgroundTaskIndentifier: UIBackgroundTaskIdentifier?
 
     var cpr: CPR? {
         didSet {
@@ -29,13 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let giveRescueBreathPath = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("giverescuebreath", ofType: "mp3")!)
                 giveRescueBreathAudioPlayer = try AVAudioPlayer(contentsOfURL: giveRescueBreathPath)
                 giveRescueBreathAudioPlayer.prepareToPlay()
+                
+                let cprCompletedPath = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("cprcompleted", ofType: "mp3")!)
+                cprCompletedAudioPlayer = try AVAudioPlayer(contentsOfURL: cprCompletedPath)
+                cprCompletedAudioPlayer.prepareToPlay()
             } catch {
                 // Do nothing
             }
         }
     }
+    
     var compressionPlayer: CompressionPlayer!
     var giveRescueBreathAudioPlayer: AVAudioPlayer!
+    var cprCompletedAudioPlayer: AVAudioPlayer!
     
     private var session: WCSession? {
         didSet {
@@ -46,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if WCSession.isSupported() {
@@ -96,10 +101,11 @@ extension AppDelegate: WCSessionDelegate {
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
         
+        // Start CPR
         if let bpm = message["start"] as? Int {
             
-            backgroundTaskIndentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-                guard let backgroundTaskIndentifier = self.backgroundTaskIndentifier else { return }
+            backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+                guard let backgroundTaskIndentifier = self.backgroundTaskIdentifier else { return }
                 UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
             })
             
@@ -118,14 +124,26 @@ extension AppDelegate: WCSessionDelegate {
                 print("problem setting up audio session")
                 replyHandler(["started": false])
             }
-        } else if (message["getCprState"] != nil) {
+        }
+        // Update watch's CPR state
+        else if (message["getCprState"] != nil) {
             guard let cpr = cpr else { return }
             let cprState = cpr.getState()
             print("updating watch cpr state")
             replyHandler(["b": cprState.bpm, "c" : cprState.currentCompression])
         }
+        // Stop the cpr
+        else if (message["stop"]) != nil {
+            guard let cpr = cpr else { return }
+            cpr.stopCPR()
+            
+            guard let backgroundTaskIndentifier = backgroundTaskIdentifier else { return }
+            UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
+            replyHandler(["stopped": true])
+            
+            cprCompletedAudioPlayer.play()
+        }
         
     }
-    
 }
 

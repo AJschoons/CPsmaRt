@@ -35,12 +35,17 @@ class StartInterfaceController: WKInterfaceController {
         
         session?.sendMessage(["start" : bpm], replyHandler: { reply in
             // handle reply from iPhone app here
-            print("watch: got reply")
-            print(reply)
-            if let bpm = reply["b"] as? Int, currentCompression = reply["c"] as? Int {
-                let cprState = CPRState(bpm: bpm, currentCompression: currentCompression)
-                self.pushControllerWithName("CPR", context: cprState)
-            }
+            dispatch_async(dispatch_get_main_queue(), {
+                print("watch: got reply")
+                print(reply)
+                
+                if let bpm = reply["b"] as? Int, currentCompression = reply["c"] as? Int {
+                    let cprState = CPRState(bpm: bpm, currentCompression: currentCompression)
+                    self.pushControllerWithName("CPR", context: cprState)
+                }
+                
+                WKInterfaceDevice.currentDevice().playHaptic(.Start)
+            })
 
             }, errorHandler: { error in
             // catch any errors here

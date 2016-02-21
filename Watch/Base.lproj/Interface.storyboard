@@ -53,13 +53,58 @@
                         <timer alignment="right" textAlignment="center" format="abbreviated" previewedSeconds="143" id="NPX-SG-acs">
                             <calendarUnit key="units" minute="YES" second="YES"/>
                         </timer>
+                        <button width="1" alignment="left" verticalAlignment="bottom" title="Stop" id="8zy-CZ-Xj0">
+                            <connections>
+                                <action selector="onStopButton" destination="8YL-Tp-Zeh" id="W0e-PB-z76"/>
+                            </connections>
+                        </button>
                     </items>
+                    <variation key="default">
+                        <mask key="items">
+                            <exclude reference="8zy-CZ-Xj0"/>
+                        </mask>
+                    </variation>
+                    <variation key="device=watch38mm">
+                        <mask key="items">
+                            <include reference="8zy-CZ-Xj0"/>
+                        </mask>
+                    </variation>
                     <connections>
                         <outlet property="timer" destination="NPX-SG-acs" id="xx6-ck-uGm"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="415" y="345"/>
+        </scene>
+        <!-- -->
+        <scene sceneID="OvS-Y7-JD1">
+            <objects>
+                <controller identifier="CPR Done" title=" " id="mZE-nm-ZfM" customClass="CprCompletedInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <imageView width="80" height="80" alignment="center" image="healthKit" id="gb2-hv-BFG"/>
+                        <label alignment="center" text="Label" textAlignment="center" id="CSH-Nf-IPM">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                            <variation key="device=watch38mm" text="CPR Completed"/>
+                        </label>
+                        <button width="1" alignment="center" verticalAlignment="bottom" title="Okay" id="DFH-Ht-c8d"/>
+                    </items>
+                    <variation key="default">
+                        <mask key="items">
+                            <exclude reference="gb2-hv-BFG"/>
+                            <exclude reference="CSH-Nf-IPM"/>
+                            <exclude reference="DFH-Ht-c8d"/>
+                        </mask>
+                    </variation>
+                    <variation key="device=watch38mm">
+                        <mask key="items">
+                            <include reference="gb2-hv-BFG"/>
+                            <include reference="CSH-Nf-IPM"/>
+                            <include reference="DFH-Ht-c8d"/>
+                        </mask>
+                    </variation>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="627" y="338"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

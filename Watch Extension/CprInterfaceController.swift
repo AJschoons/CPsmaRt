@@ -15,6 +15,10 @@ class CprInterfaceController: WKInterfaceController {
     
     @IBOutlet var timer: WKInterfaceTimer!
 
+    @IBAction func onStopButton() {
+        stopCpr()
+    }
+    
     private let healthStore = HKHealthStore()
     private var workoutSession: HKWorkoutSession?
     
@@ -76,19 +80,37 @@ class CprInterfaceController: WKInterfaceController {
     
     private func updateCprState() {
         session?.sendMessage(["getCprState" : true], replyHandler: { reply in
-            // handle reply from iPhone app here
-            print("watch: got reply")
-            print(reply)
-            if let bpm = reply["b"] as? Int, currentCompression = reply["c"] as? Int {
-                let cprState = CPRState(bpm: bpm, currentCompression: currentCompression)
+            dispatch_async(dispatch_get_main_queue(), {
+                print("watch: got reply")
+                print(reply)
                 
-                if self.cpr != nil {
-                    self.cpr.updateWithState(cprState)
-                } else {
-                    self.startCprWithState(cprState)
+                if let bpm = reply["b"] as? Int, currentCompression = reply["c"] as? Int {
+                    let cprState = CPRState(bpm: bpm, currentCompression: currentCompression)
+                    
+                    if self.cpr != nil {
+                        self.cpr.updateWithState(cprState)
+                    } else {
+                        self.startCprWithState(cprState)
+                    }
                 }
-            }
-            
+            })
+            }, errorHandler: { error in
+                // catch any errors here
+                print("watch: got reply error (will activate)")
+        })
+    }
+    
+    private func stopCpr() {
+        cpr?.stopCPR()
+        endWorkoutSession()
+        
+        session?.sendMessage(["stop" : true], replyHandler: { reply in
+            dispatch_async(dispatch_get_main_queue(), {
+                print("watch: got reply")
+                
+                self.presentControllerWithName("CPR Done", context: nil)
+                WKInterfaceDevice.currentDevice().playHaptic(.Stop)
+            })
             }, errorHandler: { error in
                 // catch any errors here
                 print("watch: got reply error (will activate)")
