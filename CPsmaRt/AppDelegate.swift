@@ -15,9 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    weak var cprViewController: CPRViewController?
+    
     let audioSession = AVAudioSession.sharedInstance()
 
-    var cpr: CPR? {
+    var cprIsRunning = false
+    
+    private var cpr: CPR? {
         didSet {
             cpr?.delegate = self
             
@@ -53,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         if WCSession.isSupported() {
             session = WCSession.defaultSession()
         }
@@ -81,8 +86,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func startCPRFromPhoneWithBPM(bpm: Int) {
+        do {
+            try startCPRWithBPM(bpm)
+        } catch {
+            
+        }
+    }
+    
+    func stopCPRFromPhone() {
+        stopCPR()
+    }
+    
+    private func startCPRWithBPM(bpm: Int) throws -> CPRState {
+        backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+            guard let backgroundTaskIndentifier = self.backgroundTaskIdentifier else { return }
+            UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
+        })
+    
+        try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+        try audioSession.setActive(true)
+        
+        let cprState = CPRState(bpm: bpm, currentCompression: 0)
+        cpr = CPR(state: cprState)
+        cpr!.startCPR()
+        cprIsRunning = true
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.cprViewController?.updateForStartCPR()
+        })
+        
+        return cprState
+    }
+    
+    private func stopCPR() {
+        cprIsRunning = false
+        
+        guard let cpr = cpr else { return }
+        cpr.stopCPR()
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.cprViewController?.updateForStopCPR()
+        })
+        
+        cprCompletedAudioPlayer.play()
+        
+        guard let backgroundTaskIndentifier = backgroundTaskIdentifier else { return }
+        UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
+    }
 }
 
 extension AppDelegate: CPRDelegate {
@@ -104,19 +156,8 @@ extension AppDelegate: WCSessionDelegate {
         // Start CPR
         if let bpm = message["start"] as? Int {
             
-            backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-                guard let backgroundTaskIndentifier = self.backgroundTaskIdentifier else { return }
-                UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
-            })
-            
             do {
-                try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-                try audioSession.setActive(true)
-                
-                let cprState = CPRState(bpm: bpm, currentCompression: 0)
-                cpr = CPR(state: cprState)
-                cpr!.startCPR()
-                
+                let cprState = try startCPRWithBPM(bpm)
                 
                 print("started cpr")
                 replyHandler(["b": cprState.bpm, "c" : cprState.currentCompression])
@@ -134,14 +175,8 @@ extension AppDelegate: WCSessionDelegate {
         }
         // Stop the cpr
         else if (message["stop"]) != nil {
-            guard let cpr = cpr else { return }
-            cpr.stopCPR()
-            
-            guard let backgroundTaskIndentifier = backgroundTaskIdentifier else { return }
-            UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
+            stopCPR()
             replyHandler(["stopped": true])
-            
-            cprCompletedAudioPlayer.play()
         }
         
     }
