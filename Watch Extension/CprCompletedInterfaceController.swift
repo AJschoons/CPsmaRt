@@ -9,11 +9,10 @@
 import WatchKit
 import Foundation
 
-
 class CprCompletedInterfaceController: WKInterfaceController {
 
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    @IBAction func onFinishButton() {
+        finish()
     }
 
     override func willActivate() {
@@ -21,9 +20,9 @@ class CprCompletedInterfaceController: WKInterfaceController {
         
         WKInterfaceDevice.currentDevice().playHaptic(.Stop)
     }
-
-    override func didDeactivate() {
-        super.didDeactivate()
+    
+    private func finish() {
+        popToRootController()
     }
 
 }

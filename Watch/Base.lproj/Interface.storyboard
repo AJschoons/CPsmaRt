@@ -17,7 +17,7 @@
                                         <action selector="onStartButton" destination="AgC-eL-Hgc" id="Lkp-3m-bdG"/>
                                     </connections>
                                 </button>
-                                <group width="1" alignment="left" id="j3U-Ax-QSK">
+                                <group width="1" alignment="center" verticalAlignment="bottom" id="j3U-Ax-QSK">
                                     <items>
                                         <label alignment="left" text="BPM" id="6oe-BZ-cK4">
                                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
@@ -27,7 +27,7 @@
                                         </label>
                                     </items>
                                 </group>
-                                <slider width="1" alignment="left" continuous="YES" value="100" minimum="50" maximum="150" steps="20" id="EKf-x2-MUt">
+                                <slider width="1" alignment="center" verticalAlignment="bottom" continuous="YES" value="100" minimum="50" maximum="150" steps="20" id="EKf-x2-MUt">
                                     <color key="color" red="0.75294117647058822" green="0.22352941176470587" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
                                         <action selector="onBpmSliderChange:" destination="AgC-eL-Hgc" id="TZc-kk-Zez"/>
@@ -86,7 +86,12 @@
                             <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                             <variation key="device=watch38mm" text="CPR Completed"/>
                         </label>
-                        <button width="1" alignment="center" verticalAlignment="bottom" title="Okay" id="DFH-Ht-c8d"/>
+                        <button width="1" alignment="center" verticalAlignment="bottom" title="Okay" id="DFH-Ht-c8d">
+                            <variation key="device=watch38mm" title="Finish"/>
+                            <connections>
+                                <action selector="onFinishButton" destination="mZE-nm-ZfM" id="ku5-qd-gUx"/>
+                            </connections>
+                        </button>
                     </items>
                     <variation key="default">
                         <mask key="items">
@@ -104,7 +109,7 @@
                     </variation>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="627" y="338"/>
+            <point key="canvasLocation" x="611" y="345"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

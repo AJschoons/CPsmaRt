@@ -31,7 +31,7 @@ class StartInterfaceController: WKInterfaceController {
     }
     
     @IBAction func onStartButton() {
-        //pushControllerWithName("CPR", context: ["bpm" : bpm])
+        WKInterfaceDevice.currentDevice().playHaptic(.Start)
         
         session?.sendMessage(["start" : bpm], replyHandler: { reply in
             // handle reply from iPhone app here
@@ -43,8 +43,6 @@ class StartInterfaceController: WKInterfaceController {
                     let cprState = CPRState(bpm: bpm, currentCompression: currentCompression)
                     self.pushControllerWithName("CPR", context: cprState)
                 }
-                
-                WKInterfaceDevice.currentDevice().playHaptic(.Start)
             })
 
             }, errorHandler: { error in

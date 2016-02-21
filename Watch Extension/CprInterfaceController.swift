@@ -49,15 +49,9 @@ class CprInterfaceController: WKInterfaceController {
     }
 
     override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
         updateCprState()
-    }
-
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
     }
     
     private func startWorkoutSession() {
@@ -102,19 +96,20 @@ class CprInterfaceController: WKInterfaceController {
     
     private func stopCpr() {
         cpr?.stopCPR()
+        timer.stop()
         endWorkoutSession()
         
         session?.sendMessage(["stop" : true], replyHandler: { reply in
             dispatch_async(dispatch_get_main_queue(), {
                 print("watch: got reply")
                 
-                self.presentControllerWithName("CPR Done", context: nil)
-                WKInterfaceDevice.currentDevice().playHaptic(.Stop)
+                self.pushControllerWithName("CPR Done", context: nil)
             })
             }, errorHandler: { error in
                 // catch any errors here
                 print("watch: got reply error (will activate)")
-        })
+            }
+        )
     }
 }
 
