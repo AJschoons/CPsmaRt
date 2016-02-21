@@ -1,4 +1,4 @@
-![logo 3x](https://cloud.githubusercontent.com/assets/7013639/13204047/83cffd7e-d893-11e5-9f53-297e420880c1.png)
+![logo 1x](https://cloud.githubusercontent.com/assets/7013639/13204052/a69951ca-d893-11e5-93e9-8c43f5fefa1a.png)
 
 Lifesaving smartphone and smartwatch app that helps rescuers keep a steady rate for CPR with sound and vibration. Repository for the iPhone and Apple Watch app
 
