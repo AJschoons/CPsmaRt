@@ -1,4 +1,6 @@
-# CPsmaRt
+![logo 3x](https://cloud.githubusercontent.com/assets/7013639/13204047/83cffd7e-d893-11e5-9f53-297e420880c1.png)
+
+Lifesaving smartphone and smartwatch app that helps rescuers keep a steady rate for CPR with sound and vibration. Repository for the iPhone and Apple Watch app
 
 ##Inspiration
 CPsmaRt was inspired by Reddit. A paramedic specializing in high performance CPR made a request for an Android app to help perform CPR. This app was to have flexible beats per minute and audio warnings for when the CPR is over, or when a breath is coming up.
