@@ -20,6 +20,8 @@ class CPRViewController: UIViewController {
         didSet { currentBPMLabel.text = String(bpm) }
     }
     
+    private weak var cprDoneViewController: CPRDoneViewController?
+    
     private let delegate = UIApplication.sharedApplication().delegate! as! AppDelegate
     
     @IBAction func onBPMSlider(sender: AnyObject) {
@@ -58,6 +60,8 @@ class CPRViewController: UIViewController {
         UIView.animateWithDuration(0.5) {
             self.setStopViewHidden(false)
         }
+        
+        dismissCPRDone()
     }
     
     func updateForStopCPR() {
@@ -66,6 +70,10 @@ class CPRViewController: UIViewController {
         }
         
         presentCPRDone()
+    }
+    
+    func dismissCPRDone() {
+        cprDoneViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     private func startCPR() {
@@ -98,6 +106,8 @@ class CPRViewController: UIViewController {
         
         cdvc.modalTransitionStyle = .CrossDissolve
         cdvc.modalPresentationStyle = .OverFullScreen
+        
+        cprDoneViewController = cdvc
         
         presentViewController(cdvc, animated: true, completion: nil)
     }

@@ -116,24 +116,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func startCPRWithBPM(bpm: Int) throws -> CPRState {
-        backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-            guard let backgroundTaskIndentifier = self.backgroundTaskIdentifier else { return }
-            UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
-        })
-    
-        try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-        try audioSession.setActive(true)
+        if !cprIsRunning || cpr == nil {
+            backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+                guard let backgroundTaskIndentifier = self.backgroundTaskIdentifier else { return }
+                UIApplication.sharedApplication().endBackgroundTask(backgroundTaskIndentifier)
+            })
         
-        let cprState = CPRState(bpm: bpm, currentCompression: 0)
-        cpr = CPR(state: cprState)
-        cpr!.startCPR()
-        cprIsRunning = true
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.cprViewController?.updateForStartCPR()
-        })
-        
-        return cprState
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            try audioSession.setActive(true)
+            
+            let cprState = CPRState(bpm: bpm, currentCompression: 0)
+            cpr = CPR(state: cprState)
+            cpr!.startCPR()
+            cprIsRunning = true
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.cprViewController?.updateForStartCPR()
+            })
+            
+            return cprState
+        } else {
+            return cpr!.getState()
+        }
     }
     
     private func stopCPR() {
@@ -194,7 +198,10 @@ extension AppDelegate: WCSessionDelegate {
             stopCPR()
             replyHandler(["stopped": true])
         }
-        
+        // Dismiss the cprdone vc
+        else if (message["finished"]) != nil {
+            cprViewController?.dismissCPRDone()
+        }
     }
 }
 

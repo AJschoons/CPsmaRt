@@ -10,7 +10,9 @@ import WatchKit
 import Foundation
 
 class CprCompletedInterfaceController: WKInterfaceController {
-
+    
+    private let delegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+    
     @IBAction func onFinishButton() {
         finish()
     }
@@ -22,6 +24,8 @@ class CprCompletedInterfaceController: WKInterfaceController {
     }
     
     private func finish() {
+        delegate.session?.sendMessage(["finished" : true], replyHandler: nil, errorHandler: nil)
+        
         popToRootController()
     }
 
