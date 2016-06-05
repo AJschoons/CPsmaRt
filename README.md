@@ -2,6 +2,8 @@
 
 Lifesaving smartphone and smartwatch app that helps rescuers keep a steady rate for CPR with sound and vibration. Repository for the iPhone and Apple Watch app
 
+Winner of runner-up for best iOS app from Apple at Hack Illinois 2016.
+
 Note: Please don't consider the quality of this code as representive of my work, as of right now this was scrapped together at Hack Illinois 2016 over the period of 36 hours, and my first Apple Watch app. 
 
 ##Inspiration
